@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/stilo1.css" />
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/stilo2.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-responsive.css">
+    <link rel='shortcut icon' href='{{STATIC_URL}}img/favicon.ico'>
+    {% block stilo_css %} {% endblock %}
+    <script src='{{STATIC_URL}}js/bootstrap.js'></script>
+	<script src='{{STATIC_URL}}js/bootstrap-collapse.js'></script>
+
+</head>
+
+<style type="text/css">
+    #barra{
+        -webkit-box-shadow: 0 2px 3px rgba(0,0,0,.35);
+        -moz-box-shadow: 0 2px 3px rgba(0,0,0,.35);
+        box-shadow: 0 2px 3px rgba(0,0,0,.40);
+    }
+</style>
+
+<body>
+{% block css %}{% endblock %}
+<div class="navbar navbar-inverse navbar-fixed-top " id="barra">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="row">
+                <div class="span2"><a href="/home"><img src="{{ STATIC_URL }}img/logo_home2.png" style="height: 40px; width: 45px;" ></a></div>
+                <div class="span8"></div>
+                <div class="span2">
+                    <div class="btn-group">
+                        <a class="btn" href="#"><i class="icon-fixed-width icon-user"></i> {{ datos.usuario|title }}</a>
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                            <span class="icon-caret-down"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/home/perfil"><i class="icon-fixed-width icon-pencil"></i> Editar</a></li>
+                            <li><a href="/home/perfil/eliminar"><i class="icon-fixed-width icon-trash"></i> Eliminar</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/cerrar"><i class="icon-fixed-width icon-signin"></i> Salir</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row-fluid" style="padding-top: 70px">
+        <div class="span3">
+                <div class="affix">
+                    <div style="padding: 1.3px 0 0 5px;"><img class="img-polaroid" style="width: 160px; height: 120px; border-radius: 10px 10px 10px 10px" src={% if datos.imagen %}{{ MEDIA_URL }}{{datos.imagen}}{% else %}'{{STATIC_URL}}img/sin_foto.gif'{% endif %} ></div>
+                    <div class="caption">
+                        <p>
+                        <p><span class="badge"><i class="icon-user"></i>Usuario</span><i class="icon-sort-down icon-rotate-270"></i><span class="label label-info">{{ datos.usuario|title }}</span></p>
+                        <p><span class="badge"><i class="icon-male"></i>Nombre</span><i class="icon-sort-down icon-rotate-270"></i><span class="label label-info">{{ datos.usuario.first_name|title }} {{ datos.usuario.last_name|title }}</span></p>
+                        </p>
+
+                        <div class="bs-docs-example">
+                            <p><span class="label label-success"><i class="icon-plus"></i>Bloogrs <i class="icon-angle-right"></i></span> <span class="badge badge-warning">{{ numcomentarios }}</span></p>
+                            <p><span class="label label-info"><i class="icon-map-marker"></i>Visistas <i class="icon-angle-right"></i></span> <span class="badge badge-warning">{{ datos.visitas }}</span></p>
+                            <p id="fecha"><span class="label label-important"><i class="icon-arrow-down"></i> Ultima visita <i class="icon-arrow-down"></i></span><br>&nbsp;&nbsp;&nbsp;<span class="badge badge-warning">{{ datos.usuario.last_login|date }}</span></p>
+                        </div>
+                        <hr>
+                        <div class="bs-docs-example2">
+                            <form action="/home/notas" method="post">{% csrf_token %}
+                                <button class="btn btn-small btn-info btn-block"><i class="icon-star"></i> Mis notas</button>
+                                <a href="/home/Todasnotas" type="button" class="btn btn-small btn-success btn-block"><i class="icon-star"></i> Ver todas las notas</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="span9" style="padding-top: 5px;">
+           {% block contenido %}
+
+           {% endblock %}
+        </div>
+    </div>
+
+
+    <script src="{{STATIC_URL}}js/jquery.js"></script>
+    <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+{% block script %}
+
+{% endblock %}
+</div>
+</body>
+</html>

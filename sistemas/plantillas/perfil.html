@@ -1,0 +1,118 @@
+{% extends 'home.html' %}
+
+{% block css %}
+    <style type="text/css">
+        #caja1
+        {
+            margin-top: 25px;
+            background: #ffffff;
+        }
+        #caja2{
+            font-size: 18px;
+        }
+    #reset{
+        margin-left: 30px;
+        margin-bottom: 10px;
+    }
+    #center{
+        margin-left:100px;
+    }
+    </style>
+{% endblock %}
+
+{% block stilo_css %}
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/switches.css" />
+{% endblock %}
+
+{% block contenido %}
+
+<div>
+    <div class="row">
+        <div class="span10"></div>
+        <div class="span2">
+            <a href="/home" class="btn btn-success disabled" style="cursor: pointer"><i class="icon-fixed-width icon-chevron-left"></i>Regresar</a>
+        </div>
+    </div>
+
+    <div id="caja1">
+        <div id="caja2"><a class="btn btn-large btn-info disabled">Editar perfil</a></div>
+        <hr>
+        {% if mensaje == 'error'%}
+            <div class="alert alert-error"><b>Upss! Hubo un error al cambiar la contraseña <i class="icon-thumbs-down-alt"></i> </b><br>
+                {% for error in reset %}
+                    <i class="icon-angle-right"></i>{{ error.name}}{{ error.errors }}
+                {% endfor %}
+            </div>
+        {% elif mensaje == 'exito' %}
+            <div class="alert alert-success"><b>Felicidades!</b> <i class="icon-thumbs-up-alt"></i> Su contraseña ha sido cambiada exitosamente</div>
+
+        {% elif mensaje == 'error-img'%}
+            <div class="alert alert-error"><b>Upss!</b> Hubo un error al cambiar la imagen <i class="icon-thumbs-down-alt"></i> <br>
+                {% for error in imagenform %}
+                    <i class="icon-angle-right"></i>{{ error.name}}{{ error.errors }}
+                {% endfor %}
+            </div>
+        {% elif mensaje == 'exito-img' %}
+            <div class="alert alert-success"><b>Felicidades!</b> <i class="icon-thumbs-up-alt"></i> Su imagen ha sido cambiada</div>
+
+        {% endif %}
+        <hr>
+        <div class="tabbable tabs-left"> <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab1" data-toggle="tab">Mi imagen <i class="icon-fixed-width icon-picture"></i></a></li>
+                <li><a href="#tab2" data-toggle="tab">Mi contraseña <i class="icon-key"></i></a></li>
+                <li><a href="#tab3" data-toggle="tab">Permitir notas <i class="icon-check"></i></a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab1">
+                    <form action="/home/perfil/cambiarImagen" method="post" enctype="multipart/form-data" >{% csrf_token %}
+                        <div class="well">{{ imagenform.imagen }}</div>
+                        <div class="pull-right"><button type="submit" class="btn btn-primary">Guardar cambios</button></div>
+                    </form>
+                </div>
+                <div class="tab-pane" id="tab2">
+                    <legend class="text-success">Cambiar mi contraseña</legend>
+                    <div id="reset">
+                        <form action="/home/perfil/cambiarPass" method="POST">{% csrf_token %}
+                            <div class="input-prepend"><span class="add-on"><i class="icon-key"></i></span></div> {{ reset.old_password }} <br>
+                            <div class="input-prepend"><span class="add-on"><i class="icon-key"></i></span></div> {{ reset.new_password1 }} <br>
+                            <div class="input-prepend"><span class="add-on"><i class="icon-key"></i></span></div> {{ reset.new_password2 }}<hr>
+                            <div id="center"><button type="submit" class="btn btn-primary">Cambiar contraseña</button></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab3">
+                    <legend class="text-success">Deseas que otros usuarios vean tus notas?</legend>
+                    <div id="reset">
+                        <form action="/home/perfil/NoNotas" method="post">{% csrf_token %}
+                            <div class="switch" id='respuesta'>
+                                <input class="switch-input" name="view" value="True" id="week"  checked="" type="radio">
+                                <label for="week" class="switch-label switch-label-off">SI</label>
+
+                                <input class="switch-input" name="view" value="False" id="month"  type="radio">
+                                <label for="month" class="switch-label switch-label-on">NO</label>
+
+                                <span class="switch-selection"></span>
+                            </div>
+                            <br>
+                            <div class="pull-right"><button type="submit" class="btn btn-primary">Guardar cambios</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+     $(document).ready(function(){
+         $('#fecha').tooltip({title:'{{datos.usuario.last_login}}',trigger:'hover',placement:'bottom'});
+         $('#id_old_password').popover({content:'{{reset.old_password.label_tag}}',trigger:'focus',placement:'right'});
+         $('#id_new_password1').popover({content:'{{reset.new_password1.label_tag}}',trigger:'focus',placement:'right'});
+         $('#id_new_password2').popover({content:'{{reset.new_password2.label_tag}}',trigger:'focus',placement:'right'});
+         $('#id_imagen').popover({content:'{{imagenform.imagen.label_tag}}',trigger:'hover',placement:'right'});
+      });
+    </script>
+{% endblock %}

@@ -1,0 +1,131 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Registrate ISD-A</title>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.css" />
+    <link rel='shortcut icon' href='{{STATIC_URL}}img/ico-registro.ico'>
+    <script src='{{STATIC_URL}}js/bootstrap.js'></script>
+	<script src='{{STATIC_URL}}js/bootstrap-collapse.js'></script>
+</head>
+<style type="text/css">
+    #caja
+    {
+        -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.1);
+        -moz-box-shadow: 0 1px 0 rgba(0,0,0,.31);
+        box-shadow: 2px 3px 2px rgba(172, 164, 164, 0.20);
+        background: -webkit-linear-gradient(top,#fff 0, #e5e5e5 100%);
+        background: -moz-linear-gradient(center top , rgb(255, 255, 255) 0px, rgb(229, 229, 229) 100%) repeat scroll 0% 0% transparent;
+    }
+</style>
+<body style="background: url('{{ STATIC_URL }}img/bg.jpg')repeat">
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="navbar " style="margin-top: 8px; ">
+            <div class="navbar-inner">
+                <div class="row show-grid">
+                    <div class="span3"><img src="{{ STATIC_URL}}img/logo.png" style="width: 250px; height: 60px; margin-bottom: 2px;" ></div>
+                    <div class="span7"></div>
+                    <div class="span1" style="margin-top: 20px"><a href="/ingresar" style="color: #bfbfbf;" id='login'><i class="icon-foursquare icon-3x"></i></div></a>
+                    <div class="span1" style=" margin-top: 20px"><a href="/" style="color: #bfbfbf;" id='home'><i class="icon-home icon-3x"></i></a></div>
+                </div>
+            </div>
+        </div>
+        {% if mensaje %}
+
+            <div class="alert alert-{{ mensaje.class }}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong style="font-size: 18px;">
+                    {% if mensaje.1 == 'Error!' %}
+                        <i class="icon-ok-circle icon-large" style="margin-top: 3px;"></i>&nbsp;&nbsp;{{ mensaje.1 }}</strong> {{ mensaje.2 }}
+                    {% else %}
+                        <i class="icon-remove-sign icon-large" style="margin-top: 3px;"></i>&nbsp;&nbsp;{{ mensaje.1 }}</strong> {{ mensaje.2 }}
+                    {% endif %}
+
+            </div>
+        {% endif %}
+
+            <div class="span4">
+                {% if mensaje %}
+                <div class="alert alert-{{ mensaje.class }}">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <p><h4><i class="icon-cogs"></i>&nbsp;&nbsp;{{ mensaje.3 }}</h4>{{ mensaje.4}}</p>
+                    <p></p>
+                    {% for campo2 in add_nom_ape %}{# Para los campos nombre,apellido #}
+                        {% if campo2.errors%}
+                            <i class="icon-hand-right"></i> {{ campo2.name|capfirst }}{{ campo2.errors }}
+                        {% endif %}
+                    {% endfor %}
+                    {% for campo1 in nuevoregistro %}{# Para los campos username,password,repassword #}
+                        {% if campo1.errors%}
+                            <i class="icon-hand-right"></i> {{ campo1.name|capfirst }}{{ campo1.errors }}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if mensaje.5 %}
+                        <ul><li>{{ mensaje.5 }}</li></ul>
+                        {% if mensaje.6 and mensaje.7 %}
+                            <ul><li>{{ mensaje.6 }}</li></ul>
+                            <ul><li>{{ mensaje.7 }}</li></ul>
+                        {% endif %}
+
+                        {% if mensaje.6 == "Ingresar" %}
+                            <p><a href="/ingresar" class="btn btn-large btn-success" style="margin-left: 150px;">{{ mensaje.6 }}</a></p>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            {% endif %}
+            </div>
+
+    <div class="span2"></div>
+    <div class="container">
+        <form action="" method="post" id="registro" onsubmit="no_vacio()">{% csrf_token %}
+            <div class="well span6" style="margin-left: -1px; border-radius: 10 10 10 10px" id="caja">
+                <div style="margin-left: 40px; margin-bottom: 30px;"><img src="{{ STATIC_URL }}img/registro.png" style="width: 250px;"></div>
+                <p><div class="input-prepend"><span class="add-on"><i class="icon-group"></i></span>{{ nuevoregistro.username }}</div></p>
+                <p><div class="input-prepend"><span class="add-on"><i class="icon-user icon-large"></i></span>{{ add_nom_ape.nombre }}</div></p>
+                <p><div class="input-prepend"><span class="add-on"><i class="icon-user icon-large"></i></span>{{ add_nom_ape.apellido }}</div></p>
+                <p><div class="input-prepend"><span class="add-on"><i class="icon-credit-card "></i></span>{{ add_nom_ape.cedula }}</div></p>
+                <p><div class="input-prepend"><span class="add-on"><i class="icon-envelope-alt"></i></span>{{ add_nom_ape.email }}</div></p>
+                <p><div class="input-prepend"><span class="add-on"><i class="icon-key "></i></span>{{ nuevoregistro.password1 }}</div></p>
+                <p><div class="input-prepend"><span class="add-on"><i class="icon-key "></i></span>{{ nuevoregistro.password2 }}</div></p>
+
+                <p style="margin-top: 20px;margin-left:30px;">
+                    <button class="btn btn-success"><i class="icon-save"></i> Registrarse</button>
+                    <button class="btn btn-danger" type="reset"><i class="icon-refresh"></i> Restablecer</button>
+                </p>
+
+            </div>
+        </form>
+    </div>
+   </div>
+</div>
+
+
+    <script src="{{STATIC_URL}}js/jquery.js"></script>
+    <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+
+     $(document).ready(function(){
+         $('#id_username').popover({placement:'right',trigger:'focus',title:'{{ nuevoregistro.username.label_tag }}',content:'{{ nuevoregistro.username.help_text }}'});
+         $('#id_password1').popover({placement:'right',trigger:'focus',title:'{{ nuevoregistro.password1.label_tag }}',content:'Introduzca su contraseña'});
+         $('#id_password2').popover({placement:'right',trigger:'focus',title:'{{ nuevoregistro.password2.label_tag }}',content:'{{ nuevoregistro.password2.help_text }}'});
+         $('#id_nombre').popover({placement:'right',trigger:'focus',title:'{{ add_nom_ape.nombre.label_tag }}',content:'{{ add_nom_ape.nombre.help_text }}'});
+         $('#id_apellido').popover({placement:'right',trigger:'focus',title:'{{ add_nom_ape.apellido.label_tag }}',content:'{{ add_nom_ape.apellido.help_text }}'});
+         $('#id_email').popover({placement:'right',trigger:'focus',title:'{{ add_nom_ape.email.label_tag }}',content:'{{ add_nom_ape.email.help_text }}'});
+         $('#id_cedula').popover({placement:'right',trigger:'focus',title:'{{ add_nom_ape.cedula.label_tag }}',content:'{{ add_nom_ape.cedula.help_text }}'});
+         $('#home').tooltip({title:'Ir a inicio',trigger:'hover', placement:'right'});
+         $('#login').tooltip({title:'Ir a login',trigger:'hover',placement:'right'});
+         $('#info').popover({title:'Israel lugo',content:'<address>Hostelixisrael@gmail.com</address><abbr title="Phone">Telefono:</abbr>0426-2075370',trigger:'hover',placement:'top'});
+      });
+    </script>
+    <footer style="padding-top: 60px;">
+        <hr>
+        <div id="footer">
+            <div class="container">
+                <p class="muted credit" style="text-align: center">Alguna sugerencia o reclamo, Contacta a <a id='info'>Israel Lugo</a> &copy;SoftelixBM</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

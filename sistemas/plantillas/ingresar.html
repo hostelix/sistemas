@@ -1,0 +1,99 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Ingresar ISD-A</title>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.css" />
+    <link rel='shortcut icon' href='{{STATIC_URL}}img/ico-login.ico'>
+    <script src='{{STATIC_URL}}js/bootstrap.js'></script>
+	<script src='{{STATIC_URL}}js/bootstrap-collapse.js'></script>
+
+
+</head>
+<style type="text/css">
+    #caja
+    {
+        -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.1);
+        -moz-box-shadow: 0 1px 0 rgba(0,0,0,.31);
+        box-shadow: 2px 3px 2px rgba(172, 164, 164, 0.20);
+        background: -webkit-linear-gradient(top,#fff 0, #e5e5e5 100%);
+        background: -moz-linear-gradient(center top , rgb(255, 255, 255) 0px, rgb(229, 229, 229) 100%) repeat scroll 0% 0% transparent;
+    }
+</style>
+<body style="background: url('{{ STATIC_URL }}img/bg.jpg')repeat">
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="navbar" style="margin-top: 8px;">
+            <div class="navbar-inner">
+                <div class="row show-grid">
+                    <div class="span3"><img src="{{ STATIC_URL}}img/logo.png" style="width: 250px; height: 60px; margin-bottom: 2px;" ></div>
+                    <div class="span7"></div>
+                    <div class="span1" style="margin-top: 12px"><a href="/registro"><img src="{{ STATIC_URL }}img/adduser.png"  id="addusuario"></a></div>
+                    <div class="span1" style=" margin-top: 20px"><a href="/" style="color: #bfbfbf;" id='home'><i class="icon-home icon-3x"></i></a></div>
+
+                </div>
+            </div>
+        </div>
+
+        {% if mensaje %}
+            <div class="alert alert-{{ mensaje.class }} ">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong style="font-size: 18px;">
+                    {% if mensaje.1 == 'Error!' %}
+                        <i class="icon-remove-circle icon-large" style="margin-top: 3px;"></i>&nbsp;&nbsp;{{ mensaje.1 }}</strong> {{ mensaje.2 }}
+                        <ul><li><small>{{ mensaje.3 }}</small></li></ul>
+                    {% else %}
+                        <i class="icon-minus-sign icon-large" style="margin-top: 3px;"></i>&nbsp;&nbsp;{{ mensaje.1 }}</strong><small>&nbsp;&nbsp;{{ mensaje.2 }}</small>
+                        <ul>
+                            <li>{{ mensaje.3 }}</li>
+                        </ul>
+
+                    {% endif %}
+            </div>
+        {% endif %}
+
+    <div class="container">
+    <div style="margin-bottom: 20px;">
+        <img src="{{ STATIC_URL }}img/logo_login.png" style="margin-left: 350px;  height:80px">
+    </div>
+        <form action="" method="post" id="ingreso">{% csrf_token %}
+            <div class="row show-grid" style="height: 200px; width:1000px">
+                <div class="span4"></div>
+                <img src="{{STATIC_URL}}img/clip.png" style="margin-left: -695px; margin-top: -40px">
+                    <div class="span4 well well-large" id="caja">
+                        <p style="margin-top: 30px;"><div class="input-prepend"><span class="add-on"><i class="icon-user"></i></span>{{ formulario.username }}</div></p>
+                        <p><div class="input-prepend"><span class="add-on"><i class="icon-key"></i></span>{{ formulario.password }}</div></p>
+                        <button class="btn btn-primary" style="margin-left: 170px" type="submit"><i class="icon-signin"></i> Ingresar</button>
+                     </div>
+                 <div class="span4"></div>
+
+            </div>
+        </form>
+        </div>
+    </div>
+
+    <footer style="padding-top: 60px;">
+        <hr>
+        <div id="footer">
+            <div class="container">
+                <p class="muted credit" style="text-align: center">Alguna sugerencia o reclamo, Contacta a <a id="info">Israel Lugo</a> &copy;SoftelixBM</p>
+            </div>
+        </div>
+    </footer>
+<script src="{{STATIC_URL}}js/jquery.js"></script>
+    <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+
+     $(document).ready(function(){
+          $('#id_username').popover({placement:'right',trigger:'focus',content:'<i class="icon-arrow-down"></i>{{ formulario.username.label_tag }}'});
+          $('#id_password').popover({placement:'right',trigger:'focus',content:'<i class="icon-hand-down"></i>{{ formulario.password.label_tag }}'});
+          $('#addusuario').tooltip({title:'Ir a registro',trigger:'hover',placement:'bottom'})
+          $('#home').tooltip({title:'Ir al inicio',trigger:'hover',placement:'right'})
+          $('#info').popover({title:'Israel lugo',content:'<address>Hostelixisrael@gmail.com</address><abbr title="Phone">Telefono:</abbr>0426-2075370',trigger:'hover',placement:'top'});
+
+      });
+    </script>
+
+</div>
+</body>
+</html>

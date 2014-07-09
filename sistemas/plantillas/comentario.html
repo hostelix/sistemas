@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blogers {{ comentario.id }} By {{ comentario.usuario|title }}</title>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-responsive.css">
+</head>
+<style type="text/css">
+    body{
+        background: #000000;
+    }
+    #imagen{
+        border-radius: 10px 10px 10px 10px;
+        width: 160px;
+        height: 160px;
+
+    }
+    #caja1{
+        margin-left: 5px;
+        margin-top: -60px;
+    }
+    #espaciado{
+        padding-bottom: 5px;
+    }
+    .letra-comentario{
+        font-size: 18px;
+        font-family: "Comic sans MS";
+    }
+
+</style>
+<body>
+    <div class="modal">
+        <div class="modal-header">
+            <table>
+                <tr>
+                    <td>
+                        <p><img id="imagen" src={% if comentario.imagen.imagen %}{{ MEDIA_URL }}{{comentario.imagen.imagen}}{% else %}'{{STATIC_URL}}img/sin_foto.gif'{% endif %}></p>
+                        <p><span class="badge"><i class="icon-user"></i> Usuario</span> <span class="badge badge-info"><i class="icon-caret-left"></i>{{ comentario.usuario|title }}</span></p>
+                    </td>
+                    <td>
+                        <div id="caja1">
+                            <h4><i class="icon-edit-sign icon-large"></i>&nbsp;&nbsp;Detalles</h4>
+                            <div id="espaciado">
+                                <span class="badge"><i class="icon-male"></i>Nombre</span> <span class="badge badge-warning"><i class="icon-caret-left"></i>{{comentario.usuario.first_name|title}}</span>
+                            </div>
+                            <div id="espaciado">
+                                <span class="badge"><i class="icon-male"></i>Apellido</span> <span class="badge badge-warning"><i class="icon-caret-left"></i>{{comentario.usuario.last_name|title}}</span>
+                            </div>
+                            <div id="espaciado">
+                                <span class="badge badge-success"><i class="icon-ok"></i>Bloguers</span> <span class="badge badge-important">{{ numcom }}</span>
+                            </div>
+                            <div id="espaciado">
+                                <span class="badge badge-success"><i class="icon-group"></i> Status</span> <span class="badge badge-info">
+                                {% if comentario.usuario.is_staff == 0 %}
+                                    <i class="icon-eye-close"></i> Usuario estandar
+                                {% else %}
+                                    <i class="icon-eye-open"></i> Administrador
+                                {% endif %}
+                            </span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-body">
+            <blockquote>
+                <p class="letra-comentario"><i class="icon-double-angle-left"></i>{{ comentario.comentario|capfirst }} <i class="icon-double-angle-right"></i></p>
+            </blockquote>
+            <small class="pull-right muted">Bloguers hecho el {{ comentario.fecha }} a las {{ comentario.hora }}</small>
+        </div>
+        <div class="modal-footer">
+            <a href="/home" class="btn btn-success"><i class="icon-chevron-left"></i> Regresar</a>
+        </div>
+    </div>
+</body>
+</html>

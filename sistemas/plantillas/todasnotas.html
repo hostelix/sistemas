@@ -1,0 +1,62 @@
+{% extends 'home.html' %}
+
+{% block contenido %}
+<div>
+    <div class="row">
+        <div class="span10"></div>
+        <div class="span2">
+            <a href="/home" class="btn btn-success disabled" style="cursor: pointer"><i class="icon-fixed-width icon-chevron-left"></i>Regresar</a>
+        </div>
+    </div>
+
+    <div class="tabbable"> <!-- Only required for left/right tabs -->
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab" data-toggle="tab">Todas las notas</a></li>
+        </ul>
+    <div class="bs-docs-example2">
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab">
+                {% if notas %}
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <td>Cedula</td>
+                            <td>Materia</td>
+                        </thead>
+                        <tbody>
+                            {% for nota in notas %}
+                                {% if nota.ver != 0 %}
+                                    <tr class="success">
+                                        <td>{{ nota.cedula }}</td>
+                                        {% for key,value in materia.items %}
+                                            {% if key == nota.codigo %}
+                                                <td>{{ value }}</td>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <td>{{ nota.nota1 }}</td><td>{{ nota.nota2 }}</td><td>{{ nota.nota3 }}</td><td>{{ nota.nota4 }}</td><td>{{ nota.nota5 }}</td>
+                                        <td>{{ nota.nota6 }}</td><td>{{ nota.nota7 }}</td><td>{{ nota.nota8 }}</td><td>{{ nota.nota9 }}</td><td>{{ nota.nota10 }}</td>
+                                        <td>{{ nota.nota11 }}</td><td>{{ nota.nota12 }}</td><td>{{ nota.notaDef }}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>Lo siento, no encontramos tus notas comunicate con <a id='info'>Israel Lugo</a> para solucionar el problema</p>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+     $(document).ready(function(){
+         $('#fecha').tooltip({title:'{{datos.usuario.last_login}}',trigger:'hover',placement:'bottom'});
+         $('#info').popover({title:'Israel lugo',content:'<address>Hostelixisrael@gmail.com</address><abbr title="Phone">Telefono:</abbr>0426-2075370',trigger:'hover',placement:'top'});
+     });
+
+    </script>
+{% endblock %}

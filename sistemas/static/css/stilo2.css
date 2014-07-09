@@ -1,0 +1,135 @@
+/* Base class */
+.bs-docs-example2 {
+  position: relative;
+  margin: 15px 0;
+  padding: 39px 19px 14px;
+  *padding-top: 19px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+/* Echo out a label for the example */
+.bs-docs-example2:after {
+  content: "Mis notas";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #9da0a4;
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;
+}
+
+/* Remove spacing between an example and it's code */
+.bs-docs-example2 + .prettyprint {
+  margin-top: -20px;
+  padding-top: 15px;
+}
+
+/* Tweak examples
+------------------------- */
+.bs-docs-example2 > p:last-child {
+  margin-bottom: 0;
+}
+.bs-docs-example2 .table,
+.bs-docs-example2 .progress,
+.bs-docs-example2 .well,
+.bs-docs-example2 .alert,
+.bs-docs-example2 .hero-unit,
+.bs-docs-example2 .pagination,
+.bs-docs-example2 .navbar,
+.bs-docs-example2 > .nav,
+.bs-docs-example2 blockquote {
+  margin-bottom: 5px;
+}
+.bs-docs-example2 .pagination {
+  margin-top: 0;
+}
+.bs-navbar-top-example2,
+.bs-navbar-bottom-example2 {
+  z-index: 1;
+  padding: 0;
+  height: 90px;
+  overflow: hidden; /* cut the drop shadows off */
+}
+.bs-navbar-top-example2 .navbar-fixed-top,
+.bs-navbar-bottom-example2 .navbar-fixed-bottom {
+  margin-left: 0;
+  margin-right: 0;
+}
+.bs-navbar-top-example2 {
+  -webkit-border-radius: 0 0 4px 4px;
+     -moz-border-radius: 0 0 4px 4px;
+          border-radius: 0 0 4px 4px;
+}
+.bs-navbar-top-example2:after {
+  top: auto;
+  bottom: -1px;
+  -webkit-border-radius: 0 4px 0 4px;
+     -moz-border-radius: 0 4px 0 4px;
+          border-radius: 0 4px 0 4px;
+}
+.bs-navbar-bottom-example2 {
+  -webkit-border-radius: 4px 4px 0 0;
+     -moz-border-radius: 4px 4px 0 0;
+          border-radius: 4px 4px 0 0;
+}
+.bs-navbar-bottom-example2 .navbar {
+  margin-bottom: 0;
+}
+form.bs-docs-example2 {
+  padding-bottom: 19px;
+}
+
+/* Images */
+.bs-docs-example-images2 img {
+  margin: 10px;
+  display: inline-block;
+}
+
+/* Tooltips */
+.bs-docs-tooltip-examples2 {
+  text-align: center;
+  margin: 0 0 10px;
+  list-style: none;
+}
+.bs-docs-tooltip-examples2 li {
+  display: inline;
+  padding: 0 10px;
+}
+
+/* Popovers */
+.bs-docs-example-popover2 {
+  padding-bottom: 24px;
+  background-color: #f9f9f9;
+}
+.bs-docs-example-popover2 .popover {
+  position: relative;
+  display: block;
+  float: left;
+  width: 260px;
+  margin: 20px;
+}
+
+/* Dropdowns */
+.bs-docs-example-submenus2 {
+  min-height: 180px;
+}
+.bs-docs-example-submenus2 > .pull-left + .pull-left {
+  margin-left: 20px;
+}
+.bs-docs-example-submenus2 .dropup > .dropdown-menu,
+.bs-docs-example-submenus2 .dropdown > .dropdown-menu {
+  display: block;
+  position: static;
+  margin-bottom: 5px;
+  *width: 180px;
+}

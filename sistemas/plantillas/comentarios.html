@@ -1,0 +1,65 @@
+{% extends 'home.html'%}
+
+{% block contenido%}
+ <div class="row-fluid">
+     <table>
+         <form action="" method="post">{% csrf_token %}
+             <tr>
+                 <td>
+                     <div class="span11">
+                         {{ comform.comentario }}
+                     </div>
+                 </td>
+                 <td>
+                     <div class="span1">
+                         <button class="btn btn-large btn-success" style="padding: 24px 25px 20px 25px; margin-top:-10px">
+                             <i class="icon-fixed-width icon-comments-alt icon-2x"></i>
+                         </button>
+                     </div>
+                 </td>
+             </tr>
+         </form>
+     </table>
+ </div>
+
+<hr>
+    {% for comentarios in comentarios%}
+
+<div class="thumbnail" style="margin-bottom: 10px;">
+    <div class="media">
+        </a>
+        <div class="pull-right">
+            <img class="media-object img-rounded"  style="width: 68px; height: 75px;" src={% if comentarios.imagen.imagen %}{{ MEDIA_URL }}{{comentarios.imagen.imagen}}{% else %}'{{STATIC_URL}}img/sin_foto.gif'{% endif %}>
+        </div>
+        <div class="media-body">
+            <div style="margin: 2px 0 0 2px; ">
+                <div class="media-heading">
+                    <div>
+                        <span class="badge badge-success">{{ comentarios.usuario|title }}</span> -<small class="muted">Ha blogueado</small>
+                        <a href="/home/{{ comentarios.id }}">
+                            <div class="pull-right muted"><i class="icon-plus-sign-alt"></i><small> Ver mas</small></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div style="margin:10px 0 0 5px;">
+                <blockquote>
+                <p><i class="icon-quote-left text-info" style="font-size: 13px"></i> {{ comentarios.comentario|capfirst }} <i class="icon-quote-right text-info" style="font-size: 13px"></i></p>
+                </blockquote>
+            </div>
+        </div>
+        <div class="pull-right"><span class="label label-warning ">{{ comentarios.fecha|date }}</span> <span class="badge badge-info">{{ comentarios.hora }}</span></div>
+    </div>
+</div>
+    {% endfor %}
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+
+     $(document).ready(function(){
+         $('#comentario').tooltip({title:'<i class="icon-caret-up"></i>Vamos Bloguea Algo<i class="icon-caret-up"></i>',trigger:'focus',placement:'bottom'})
+         $('#fecha').tooltip({title:'{{datos.usuario.last_login}}',trigger:'hover',placement:'bottom'});
+      });
+    </script>
+{% endblock %}

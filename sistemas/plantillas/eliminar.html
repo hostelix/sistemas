@@ -1,0 +1,74 @@
+{% extends 'home.html' %}
+
+{% block stilo_css %}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/switches.css" />
+{% endblock %}
+
+{% block css %}
+    <style type="text/css">
+        #caja1
+        {
+            margin-top: 25px;
+            background: #ffffff;
+            border: none;
+        }
+        #caja2{
+            font-size: 18px;
+        }
+        #titulo{
+            font-size: 20px;
+            font-family: cursive;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block contenido %}
+
+<div>
+    <div class="row">
+        <div class="span10"></div>
+        <div class="span2">
+            <a href="/home" class="btn btn-success disabled" style="cursor: pointer"><i class="icon-fixed-width icon-chevron-left"></i>Regresar</a>
+        </div>
+    </div>
+
+    <div id="caja1">
+        <div id="caja2"><a class="btn btn-large btn-info disabled">Eliminar</a></div>
+        <hr>
+        {% if mensaje == 'exito' %}
+            <div class="alert alert-success"><b>Felicidades!</b> Su cuenta ha sido desactivada exitosamente</div>
+        {% elif mensaje == 'error1'%}
+            <div class="alert alert-warning"><b>Lo siento!</b> Su cuenta ya esta desactivada, comuniquese con el administrador</div>
+        {% elif mensaje == 'error2' %}
+            <div class="alert alert-error"><b>Error!</b> Lo sentimos hubo una error inesperado</div>
+        {% endif %}
+        <div class="well" id="caja1">
+            <div id="titulo"><a class="btn btn-large btn-warning disabled">Desactivar cuenta</a></div>
+            <br>
+            <form action="/home/perfil/eliminar" method="post">{% csrf_token %}
+                <div class="switch" id='respuesta'>
+                    <input class="switch-input" name="view" value="True" id="week" type="radio">
+                    <label for="week" class="switch-label switch-label-off">SI</label>
+
+                    <input class="switch-input" name="view" value="False" id="month"  checked="" type="radio">
+                    <label for="month" class="switch-label switch-label-on">NO</label>
+
+                    <span class="switch-selection"></span>
+                </div>
+                <br>
+                <div class="pull-right"><button type="submit" class="btn btn-primary">Guardar cambios</button></div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+     $(document).ready(function(){
+         $('#fecha').tooltip({title:'{{datos.usuario.last_login}}',trigger:'hover',placement:'bottom'});
+         $('#respuesta').tooltip({title:'Asegure su respuesta',trigger:'hover',placement:'bottom'});
+      });
+    </script>
+{% endblock %}

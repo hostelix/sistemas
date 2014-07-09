@@ -1,0 +1,96 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Subir notas</title>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.css" />
+    <link rel='shortcut icon' href='{{STATIC_URL}}img/ico-subir.ico'>
+    <script src='{{STATIC_URL}}js/bootstrap.js'></script>
+	<script src='{{STATIC_URL}}js/bootstrap-collapse.js'></script>
+
+
+</head>
+<style type="text/css">
+    #caja
+    {
+        -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.1);
+        -moz-box-shadow: 0 1px 0 rgba(0,0,0,.31);
+        box-shadow: 2px 3px 2px rgba(172, 164, 164, 0.20);
+        background: -webkit-linear-gradient(top,#fff 0, #e5e5e5 100%);
+        background: -moz-linear-gradient(center top , rgb(255, 255, 255) 0px, rgb(229, 229, 229) 100%) repeat scroll 0% 0% transparent;
+        padding-top: 30px;
+    }
+</style>
+<body style="background: url('{{ STATIC_URL }}img/bg.jpg')repeat">
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="navbar" style="margin-top: 8px;">
+            <div class="navbar-inner">
+                <div class="row show-grid">
+                    <div class="span3"><img src="{{ STATIC_URL}}img/logo.png" style="width: 250px; height: 60px; margin-bottom: 2px;" ></div>
+                    <div class="span8"></div>
+                    <div class="span1" style=" margin-top: 20px"><a href="/" style="color: #bfbfbf;" id='home'><i class="icon-home icon-3x"></i></a></div>
+
+                </div>
+            </div>
+        </div>
+
+        {% if mensaje %}
+            {% if mensaje == 'extension' %}
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <p style="font-size: 18px;">Error! <small>Disculpe, hubo un peque&ntilde;o problema</small></p>
+                    <ul><li>Los documentos tienen que tener una extension <code>.xls</code>. Verifique la extension del documento</li></ul>
+            </div>
+                {% elif mensaje == 'exito' %}
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <p style="font-size: 18px;">Todo bien!</p>
+                    <ul><li>Las notas han sido cargadas con exito</li></ul>
+            </div>
+                {% elif mensaje == 'seccion' %}
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <p style="font-size: 18px;">Error! <small>Disculpe, hubo un peque&ntilde;o problema</small></p>
+                    <ul><li>Esta planilla no pertenece a esta seccion</li></ul>
+            </div>
+                {% endif %}
+        {% endif %}
+    <div class="container">
+    <div style="margin-bottom: 20px;">
+    </div>
+        <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <div class="row show-grid" style="height: 200px; width:1000px">
+                <div class="span3"></div>
+                <img src="{{STATIC_URL}}img/clip.png" style="margin-left: -695px; margin-top: -40px">
+                    <div class="span6 well well-large" id="caja">
+                        <p><div class="input-prepend">{{ archivo.archivo }}</div></p>
+                        <button class="btn btn-primary" style="margin-left: 170px" type="submit"><i class="icon-cloud-upload"></i> Subir</button>
+                     </div>
+                 <div class="span3"></div>
+            </div>
+        </form>
+
+    <script src="{{STATIC_URL}}js/jquery.js"></script>
+    <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+
+     $(document).ready(function(){
+          $('#id_archivo').tooltip({title:'{{archivo.archivo.label_tag}}',trigger:'hover',placement:'right'});
+         $('#info').popover({title:'Israel lugo',content:'<address>Hostelixisrael@gmail.com</address><abbr title="Phone">Telefono:</abbr>0426-2075370',trigger:'hover',placement:'top'});
+
+      });
+    </script>
+
+    <footer style="padding-top: 320px;">
+        <hr>
+        <div id="footer">
+            <div class="container">
+                <p class="muted credit" style="text-align: center">Alguna sugerencia o reclamo, Contacta a <a id="info">Israel Lugo</a> &copy;SoftelixBM</p>
+            </div>
+        </div>
+    </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bienvenido a ISD-A </title>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-responsive.css">
+    <link rel='shortcut icon' href='{{STATIC_URL}}img/mundo.ico'>
+    <script src='{{STATIC_URL}}js/bootstrap.js'></script>
+	<script src='{{STATIC_URL}}js/bootstrap-collapse.js'></script>
+
+</head>
+<body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+            <div class="row span9"><img style=" height: 60px; width: 180px;" src="{{ STATIC_URL }}img/home.png"></div>
+            <div class="row span3"><a class="btn btn-success btn-large span2" href="/subir">Subir notas »</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="padding-top: 90px;  padding-bottom: 40px; ">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+        <h1>Bienvenidos, a <img src="{{ STATIC_URL }}img/LOGO2.png" style="height: 100px;"><i class="icon-globe" style="margin-top: 20px; margin-left: -30px;"></i></h1>
+        <p>En este sitio web encontraras todo acerca de nuestra seccion: Comentarios <i class="icon-comments-alt"></i> , Fotos <i class="icon-picture"></i> , Notas <i class="icon-list-alt"></i>. <br>Entre muchas cosas mas <i class="icon-level-down"></i></p>
+        <p>
+            <a class="btn btn-primary btn-large" href="/ingresar">Ingresar »</a>
+        </p>
+      </div>
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="span4">
+          <h2><small><i class="icon-thumbs-up-alt icon-large"></i></small> Blogs</h2>
+          <p><i class="icon-expand-alt"></i>Un peque&ntilde;o blog para interactuar con tus compa&ntilde;eros, compartir tus ideas acerta del tema que prefieras </p>
+        </div>
+        <div class="span4">
+          <h2><small><i class="icon-thumbs-up-alt icon-large"></i></small> Notas <small>Beta</small></h2>
+          <p><i class="icon-expand-alt"></i>Sistemas de notas con el cual podras acceder a las calificacion de cada materia, ver tu promedio</p>
+       </div>
+        <div class="span4">
+          <h2><small><i class="icon-thumbs-up-alt icon-large"></i></small> Chat <small>Proximamente</small></h2>
+          <p><i class="icon-expand-alt"></i>En construccion <i class="icon-cogs"></i></p>
+        </div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p style="text-align: center">Alguna sugerencia o reclamo contacta: <a id='info'>Israel lugo</a> &copy;SoftelixBM</p>
+      </footer>
+
+    </div>
+    <script src="{{STATIC_URL}}js/jquery.js"></script>
+    <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+         $(document).ready(function(){
+             $('#info').popover({title:'Israel lugo',content:'<address>Hostelixisrael@gmail.com</address><abbr title="Phone">Telefono:</abbr>0426-2075370',trigger:'hover',placement:'top'});
+          });
+        </script>
+</body>
+</html>
